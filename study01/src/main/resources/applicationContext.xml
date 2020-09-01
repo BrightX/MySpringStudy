@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--1. 通过无参构造方法创建对象-->
+    <!--<bean id="userDao" class="com.bright.study01.dao.impl.UserDaoImpl" scope="singleton" init-method="init" destroy-method="destroy"></bean>-->
+
+    <!--2. 通过工厂静态方法创建对象-->
+    <!--<bean id="userDao" class="com.bright.study01.factory.StaticFactory" factory-method="getUserDao"></bean>-->
+
+    <!--3. 通过工厂实例获取对象 -->
+    <!--<bean id="factory" class="com.bright.study01.factory.DynamicFactory"></bean>-->
+    <!--<bean id="userDao" factory-bean="factory" factory-method="getUserDao"></bean>-->
+
+    <bean id="userDao" class="com.bright.study01.dao.impl.UserDaoImpl">
+        <property name="username" value="张山"></property>
+        <property name="age" value="18"></property>
+    </bean>
+
+    <!--<bean id="userService" class="com.bright.study01.service.impl.UserServiceImpl">-->
+    <!--    <property name="userDao" ref="userDao"></property>-->
+    <!--</bean>-->
+
+    <!--p 命名空间注入-->
+    <!--<bean id="userService" class="com.bright.study01.service.impl.UserServiceImpl" p:userDao-ref="userDao">-->
+    <!--    <property name="userDao" ref="userDao"></property>-->
+    <!--</bean>-->
+
+    <!--构造注入-->
+    <bean id="userService" class="com.bright.study01.service.impl.UserServiceImpl">
+        <constructor-arg name="userDao" ref="userDao"></constructor-arg>
+    </bean>
+
+    <!-- 引入其他配置文件(分模块开发) -->
+    <import resource="applicationContext-user.xml"/>
+
+</beans>

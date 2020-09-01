@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation=
+               "http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                 http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+               ">
+
+    <!--Spring 容器创建数据源对象-->
+    <!--<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="username" value="root"/>
+        <property name="password" value="1234"/>
+        <property name="url" value="jdbc:mysql://localhost:3309/test"/>
+    </bean>-->
+
+    <!--加载外部的properties配置文件-->
+    <context:property-placeholder location="jdbc.properties"/>
+
+    <!--Spring 容器创建数据源对象-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="url" value="${jdbc.url}"/>
+    </bean>
+
+    <!--<bean id="userDao" class="com.bright.dao.impl.UserDaoImpl"/>-->
+
+    <!--<bean id="userService" class="com.bright.service.impl.UserServiceImpl">-->
+    <!--    <property name="userDao" ref="userDao"/>-->
+    <!--</bean>-->
+
+    <!--配置组件扫描  使用注解时需要添加-->
+    <context:component-scan base-package="com.bright"/>
+
+
+    <!--目标对象-->
+    <bean id="target" class="com.bright.aop.Target"/>
+
+    <!--切面对象-->
+    <bean id="myAspect" class="com.bright.aop.MyAspect"/>
+
+    <!--配置织入 告诉spring框架 哪些方法(切点)需要进行哪些增强(前置、后置...)-->
+    <aop:config>
+        <!--声明切面-->
+        <aop:aspect ref="myAspect">
+            <!--抽取切点表达式-->
+            <aop:pointcut id="myPointcut" expression="execution(* com.bright.aop.Target.*(..))"/>
+
+            <!--切面：切点+通知-->
+            <aop:before method="before" pointcut="execution(public void com.bright.aop.Target.save())"/>
+            <aop:after-returning method="afterReturning" pointcut="execution(public void com.bright.aop.Target.save())"/>
+            <aop:around method="around" pointcut="execution(* com.bright.aop.Target.*(..))"/>
+            <aop:after-throwing method="afterThrowing" pointcut="execution(* com.bright.aop.Target.*(..))"/>
+
+            <!--切点表达式相同 可通过pointcut-ref 抽取pointcut-->
+            <aop:after method="after" pointcut-ref="myPointcut"/>
+        </aop:aspect>
+    </aop:config>
+</beans>

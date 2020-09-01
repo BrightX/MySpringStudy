@@ -1,0 +1,5 @@
+# 多文件多环境
+server:
+  port: 8080  # 指定端口号
+  servlet:
+    context-path: /dev  # 指定上下文路径

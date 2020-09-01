@@ -1,0 +1,26 @@
+spring:
+  profiles:
+#    active: dev  # 默认选择 dev (生产环境)
+    active: pro  # 默认选择 dev (生产环境)
+# 命令行里实现选择: java -jar ***.jar --spring.profiles.active=dev
+
+
+---
+# 单文件多环境选择
+spring:
+  profiles: dev
+
+server:
+  port: 8080  # 指定端口号
+  servlet:
+    context-path: /dev  # 指定上下文路径
+
+---
+# 单文件多环境选择
+spring:
+  profiles: pro
+
+server:
+  port: 8080  # 指定端口号
+  servlet:
+    context-path: /pro  # 指定上下文路径
