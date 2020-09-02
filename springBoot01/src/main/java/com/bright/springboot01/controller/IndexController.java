@@ -21,4 +21,9 @@ public class IndexController {
         model.addAttribute("msg", msg);
         return "index";
     }
+
+    @RequestMapping(value = {"/manage"})
+    public String manage() {
+        return "manage";
+    }
 }

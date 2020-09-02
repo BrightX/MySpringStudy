@@ -11,7 +11,7 @@
 <h2 th:if="${msg}">Your message is : <span th:text="${msg}"></span></h2>
 去<a href="#" th:href="@{/user/tell(msg=${msg})}">聊天</a>
 <div id="app">
-    <el-button type="primary" icon="el-icon-search">搜索</el-button>
+    <a href="javascript:" th:href="@{/manage}"><el-button type="primary" icon="el-icon-search">搜索</el-button></a>
     <el-button @click="visible = true">Button</el-button>
     <el-dialog :visible.sync="visible" title="Hello world">
         <p>Try Element</p>
