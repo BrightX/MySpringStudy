@@ -4,10 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <title>首页</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.js" th:src="@{/vue-2.6.11/vue.js}"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/element-ui/2.9.2/index.js" th:src="@{/element-ui-2.9.2/index.js}"></script>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/element-ui/2.9.2/theme-chalk/index.css" th:href="@{/element-ui-2.9.2/theme/index.css}">
+    <!--<script src="https://cdn.bootcdn.net/ajax/libs/element-ui/2.9.2/index.js"></script>-->
+    <!--<link href="https://cdn.bootcdn.net/ajax/libs/element-ui/2.9.2/theme-chalk/index.css" rel="stylesheet">-->
 </head>
 <body>
 <h1>这里是首页。</h1>
 <h2 th:if="${msg}">Your message is : <span th:text="${msg}"></span></h2>
 去<a href="#" th:href="@{/user/tell(msg=${msg})}">聊天</a>
+<div id="app">
+    <el-button @click="visible = true">Button</el-button>
+    <el-dialog :visible.sync="visible" title="Hello world">
+        <p>Try Element</p>
+    </el-dialog>
+</div>
 </body>
+<script>
+    new Vue({
+        el: '#app',
+        data: function() {
+            return { visible: false }
+        }
+    })
+</script>
 </html>
