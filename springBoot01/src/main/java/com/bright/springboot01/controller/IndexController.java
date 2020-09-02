@@ -18,9 +18,6 @@ public class IndexController {
      */
     @RequestMapping(value = {"/", "/index", "/home"})
     public String index(String msg, Model model){
-        if (msg == null) {
-            msg = "";
-        }
         model.addAttribute("msg", msg);
         return "index";
     }
