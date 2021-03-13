@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>群聊</title>
+    <script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/sockjs-client/1.1.2/sockjs.min.js}"></script>
+    <script th:src="@{/webjars/stomp-websocket/2.3.3/stomp.min.js}"></script>
+</head>
+<body>
+<div>
+    <label for="name">请输入用户名：</label>
+    <input type="text" id="name" placeholder="用户名">
+</div>
+<div>
+    <button type="button" id="connect">连接</button>
+    <button type="button" id="disconnect">断开连接</button>
+</div>
+<div id="chat" style="display: none;"></div>
+
+<div>
+    <label for="content">请输入聊天内容：</label>
+    <input type="text" id="content" placeholder="聊天内容">
+</div>
+<button type="button" id="send">发送</button>
+<div id="greeting"></div>
+
+<div id="conversation" style="display:none;">群聊进行中...</div>
+</body>
+<script th:src="@{/app.js}"></script>
+</html>
